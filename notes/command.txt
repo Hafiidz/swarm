@@ -1,0 +1,1 @@
+rosservice call /spawn 2 7 0.2 "another_turtle"

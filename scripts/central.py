@@ -8,14 +8,15 @@ from Turtle import *
 
 
 def shape(s):
-    p = '/home/hafiidz/catkin_ws/src/swarm/scripts/'
+    p = '/root/catkin_ws/src/swarm/scripts/'
     df = pd.read_csv('{}{}.csv'.format(p, s))
     arr = df.to_numpy()
-    
+
     # coordinate is 11x11, normalize to ensure, 3 to the side and 5 at center
     space = 2
     length = max(df['x'].max()-df['x'].min(), df['y'].max()-df['y'].min())
     return (arr/length*4.9)+space
+
 
 class Robot:
     def __init__(self):
@@ -60,7 +61,7 @@ class Robot:
             else:
                 self.list[i].spawn(self.contours[i][0],
                                    self.contours[i][1], 0.0)
-    
+
     def log_pose(self):
         for i in range(self.numbers):
             rospy.loginfo(str(self.list[i].return_pose()))
@@ -79,6 +80,6 @@ if __name__ == '__main__':
         r.spawn_source()
         r.log_pose()
         r.move()
-        
+
     except KeyboardInterrupt:
         exit()

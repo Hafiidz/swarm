@@ -16,26 +16,30 @@ def reset_sim():
     Function to Reset the Simulator
     """
     try:
-        reset_serv = rospy.ServiceProxy('/reset', Empty)
+        reset_serv = rospy.ServiceProxy("/reset", Empty)
         reset_serv()
     except rospy.ServiceException as e:
         rospy.loginfo("Service execution failed: %s" + str(e))
 
+
 def callback(msg):
     return msg
 
+
 class Turtle:
     def __init__(self, i):
-        self.name = 'turtle' + str(i)
-        
+        self.name = "turtle" + str(i)
+
         # Publisher which will publish to the topic '/turtle1/cmd_vel'.
-        self.velocity_publisher = rospy.Publisher('/{}/cmd_vel'.format(self.name),
-                                                  Twist, queue_size=10)
+        self.velocity_publisher = rospy.Publisher(
+            "/{}/cmd_vel".format(self.name), Twist, queue_size=10
+        )
 
         # A subscriber to the topic '/turtle1/pose'. self.update_pose is called
         # when a message of type Pose is received.
-        self.pose_subscriber = rospy.Subscriber('/{}/pose'.format(self.name),
-                                                Pose, self.update_pose)
+        self.pose_subscriber = rospy.Subscriber(
+            "/{}/pose".format(self.name), Pose, self.update_pose
+        )
 
         self.pose = Pose()
         self.rate = rospy.Rate(10)
@@ -54,7 +58,7 @@ class Turtle:
         :type theta: float between [0 to 3] OR [0 to -3]
         """
         try:
-            serv = rospy.ServiceProxy('/spawn', Spawn)
+            serv = rospy.ServiceProxy("/spawn", Spawn)
             serv(x, y, theta, self.name)
         except rospy.ServiceException as e:
             rospy.loginfo("Service execution failed: %s" + str(e))
@@ -67,10 +71,10 @@ class Turtle:
         """
         try:
             if not flag:
-                set_serv = rospy.ServiceProxy('/' + self.name + '/set_pen', SetPen)
+                set_serv = rospy.ServiceProxy("/" + self.name + "/set_pen", SetPen)
                 set_serv(0, 0, 0, 0, 1)
             elif flag:
-                set_serv = rospy.ServiceProxy('/' + self.name + '/set_pen', SetPen)
+                set_serv = rospy.ServiceProxy("/" + self.name + "/set_pen", SetPen)
                 set_serv(255, 255, 255, 2, 0)
         except rospy.ServiceException as e:
             rospy.loginfo("Service execution failed: %s" + str(e))
@@ -86,7 +90,9 @@ class Turtle:
         :type theta: float between [0 to 3] OR [0 to -3]
         """
         try:
-            serv = rospy.ServiceProxy('/' + self.name + '/teleport_absolute', TeleportAbsolute)
+            serv = rospy.ServiceProxy(
+                "/" + self.name + "/teleport_absolute", TeleportAbsolute
+            )
             serv(x, y, theta)
         except rospy.ServiceException as e:
             rospy.loginfo("Service execution failed: %s" + str(e))
@@ -96,7 +102,7 @@ class Turtle:
         Function to remove the turtle from Turtle-sim
         """
         try:
-            serv = rospy.ServiceProxy('/kill', Kill)
+            serv = rospy.ServiceProxy("/kill", Kill)
             serv(self.name)
         except rospy.ServiceException as e:
             rospy.loginfo("Service execution failed: %s" + str(e))
@@ -105,16 +111,18 @@ class Turtle:
     """ Auxiliary Functions """
     """"""
 
-
-
     def return_pose(self):
-        return (self.pose.x, self.pose.y, self.pose.theta, self.pose.linear_velocity, self.pose.angular_velocity)
-
-
+        return (
+            self.pose.x,
+            self.pose.y,
+            self.pose.theta,
+            self.pose.linear_velocity,
+            self.pose.angular_velocity,
+        )
 
     """"""
     """ Movement Functions """
-    """"""    
+    """"""
 
     def update_pose(self, data):
         """Callback function which is called when a new message of type Pose is
@@ -125,8 +133,9 @@ class Turtle:
 
     def euclidean_distance(self, goal_pose):
         """Euclidean distance between current pose and the goal."""
-        return sqrt(pow((goal_pose.x - self.pose.x), 2) +
-                    pow((goal_pose.y - self.pose.y), 2))
+        return sqrt(
+            pow((goal_pose.x - self.pose.x), 2) + pow((goal_pose.y - self.pose.y), 2)
+        )
 
     def linear_vel(self, goal_pose, constant=1.5):
         """See video: https://www.youtube.com/watch?v=Qh15Nol5htM."""
@@ -149,12 +158,11 @@ class Turtle:
         goal_pose.y = float(y)
 
         # Please, insert a number slightly greater than 0 (e.g. 0.01).
-        distance_tolerance = float(0.5)
+        distance_tolerance = float(0.01)
 
         vel_msg = Twist()
 
         while self.euclidean_distance(goal_pose) >= distance_tolerance:
-
             # Porportional controller.
             # https://en.wikipedia.org/wiki/Proportional_control
 
@@ -180,7 +188,7 @@ class Turtle:
         self.velocity_publisher.publish(vel_msg)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         # Create a turtle
         turtle2 = Turtle(2)

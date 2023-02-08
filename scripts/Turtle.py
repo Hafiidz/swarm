@@ -44,8 +44,11 @@ class Turtle:
         self.pose = Pose()
         self.rate = rospy.Rate(10)
 
+    def __str__(self):
+        return "Turtle {}".format(self.name)
+
     def __repr__(self):
-        print("Turtle {}".format(self.name))
+        return "Turtle {}: pose at {}".format(self.name, self.pose)
 
     def spawn(self, x, y, theta):
         """
@@ -60,6 +63,8 @@ class Turtle:
         try:
             serv = rospy.ServiceProxy("/spawn", Spawn)
             serv(x, y, theta, self.name)
+            self.pose.x = round(x, 4)
+            self.pose.y = round(y, 4)
         except rospy.ServiceException as e:
             rospy.loginfo("Service execution failed: %s" + str(e))
 

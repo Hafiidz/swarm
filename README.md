@@ -3,7 +3,7 @@
 #### On Host Computer (example command in Ubuntu)
 1. `cd ~`
 1. `mkdir ros`
-1. `git clone https://github.com/Hafiidz/swarm.git ~/ros/catkin_ws`
+1. `git clone https://github.com/Hafiidz/swarm.git ~/ros/catkin_ws/src/swarm`
 1. `docker pull tiryoh/ros-desktop-vnc:noetic-amd64`
 1. `docker run -p 6080:80 --shm-size=512m --name=rosn -it -v ~/ros/catkin_ws:/root/catkin_ws tiryoh/ros-desktop-vnc:noetic-amd64`
 1. open a browser and got to localhost:6080 or http://127.0.0.1:6080/

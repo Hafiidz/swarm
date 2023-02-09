@@ -49,3 +49,11 @@ def coord_sorted(s, sort="polar"):
         df.sort_values(by=sort, inplace=True)
 
     return df[["x", "y"]].to_numpy() + 5.5
+
+
+def coord_shifted(coord, shift=1):
+    df = pd.DataFrame(coord, columns=["x", "y"])
+    l = df.index.to_list()
+    idx = l[-shift:] + l[0:-shift]
+    df = df.iloc[idx]
+    return df[["x", "y"]].to_numpy()

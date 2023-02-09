@@ -57,11 +57,10 @@ class Robot:
 
     # TODO, still need work
     def move(self):
-        goal = ch.coord_sorted("square")
+        # goal = ch.coord_sorted("square")
+        goal = ch.coord_shifted(ch.coord_sorted("circle"), 2)
         n = min(goal.shape[0], self.numbers)
         for i in range(n):
-            # self.list[i].move2goal(goal[i][0], goal[i][1]) #unstable
-            # using Bezier path, since move2 goal is not stable
             self.list[i].moveBezier(goal[i][0], goal[i][1])
 
 

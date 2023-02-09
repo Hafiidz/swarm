@@ -9,6 +9,7 @@ from turtlesim.msg import Pose
 from math import pow, atan2, sqrt
 
 from nav_msgs.msg import Odometry
+import path_helper as ph
 
 
 def reset_sim():
@@ -153,6 +154,13 @@ class Turtle:
     def angular_vel(self, goal_pose, constant=6):
         """See video: https://www.youtube.com/watch?v=Qh15Nol5htM."""
         return constant * (self.steering_angle(goal_pose) - self.pose.theta)
+
+    def moveBezier(self, x, y):
+        path_, control_point = ph.calc_4points_bezier_path(
+            self.pose.x, self.pose.y, self.pose.theta, x, y, 0, 1
+        )
+        for i in range(path_.shape[0]):
+            self.teleport(path_[i][0], path_[i][1], self.pose.theta)
 
     def move2goal(self, x, y):
         """Moves the turtle to the goal."""

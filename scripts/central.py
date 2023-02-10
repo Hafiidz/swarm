@@ -43,7 +43,7 @@ class Robot:
         """
         Spawn multiple turtles on the first point of each contour
         """
-        rospy.loginfo("Spawning an army of turtles to sketch your image")
+        rospy.loginfo("Spawning an army of turtles to perform drone show")
         for i in range(self.numbers):
             self.list.append(Turtle(i + 1))
             if i == 0:

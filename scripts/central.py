@@ -68,10 +68,26 @@ class Robot:
         dfs = ch.gen_df_list()
         path_plan_x, path_plan_y = ph.calc_path_from_df_list(dfs)
 
-        for j in range(path_plan_x.shape[1] - 1):
-            for i in range(path_plan_x.shape[0]):
+        lj = path_plan_x.shape[1] - 1
+        li = int(path_plan_x.shape[0] / 4)
+
+        for j in range(lj):
+            for i in range(li):
                 self.list[i].teleport(
                     path_plan_x.iloc[i, j + 1], path_plan_y.iloc[i, j + 1], 0
+                )
+                self.list[i + li].teleport(
+                    path_plan_x.iloc[i + li, j + 1], path_plan_y.iloc[i + li, j + 1], 0
+                )
+                self.list[i + 2 * li].teleport(
+                    path_plan_x.iloc[i + 2 * li, j + 1],
+                    path_plan_y.iloc[i + 2 * li, j + 1],
+                    0,
+                )
+                self.list[i + 3 * li].teleport(
+                    path_plan_x.iloc[i + 3 * li, j + 1],
+                    path_plan_y.iloc[i + 3 * li, j + 1],
+                    0,
                 )
 
 
@@ -80,7 +96,6 @@ if __name__ == "__main__":
         r = Robot()
         r.spawn_source()
         r.log_pose()
-        # r.move()
         r.move_parallel()
 
     except KeyboardInterrupt:

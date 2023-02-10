@@ -155,9 +155,9 @@ class Turtle:
         """See video: https://www.youtube.com/watch?v=Qh15Nol5htM."""
         return constant * (self.steering_angle(goal_pose) - self.pose.theta)
 
-    def moveBezier(self, x, y):
+    def moveBezier(self, x, y, t):
         path_, control_point = ph.calc_4points_bezier_path(
-            self.pose.x, self.pose.y, self.pose.theta, x, y, 0, 1
+            self.pose.x, self.pose.y, self.pose.theta, x, y, t, 1
         )
         for i in range(path_.shape[0]):
             self.teleport(path_[i][0], path_[i][1], self.pose.theta)

@@ -8,6 +8,7 @@ from Turtle import *
 
 import coord_helper as ch
 import path_helper as ph
+from math import pi
 
 
 class Robot:
@@ -26,9 +27,9 @@ class Robot:
         # Rate to control frequency of operation of node
         self.rate = rospy.Rate(1)  # 10hz
 
-        norm_arr = ch.coord_sorted("circle")
-        self.contours = norm_arr
-        self.numbers = norm_arr.shape[0]
+        df = ch.coord_sorted_df("circle")
+        self.contours = df[["x", "y", "d"]].to_numpy()
+        self.numbers = df.shape[0]
 
         # self.numbers = 4
         # self.contours = [[1,1], [2,2], [3, 3], [4, 4]]
@@ -47,10 +48,18 @@ class Robot:
             self.list.append(Turtle(i + 1))
             if i == 0:
                 self.list[0].set_pen(0)
-                self.list[0].teleport(self.contours[i][0], self.contours[i][1], 0.0)
+                self.list[0].teleport(
+                    self.contours[i][0],
+                    self.contours[i][1],
+                    self.contours[i][2] + pi / 2,
+                )
                 self.list[0].set_pen(1)
             else:
-                self.list[i].spawn(self.contours[i][0], self.contours[i][1], 0.0)
+                self.list[i].spawn(
+                    self.contours[i][0],
+                    self.contours[i][1],
+                    self.contours[i][2] + pi / 2,
+                )
 
     def log_pose(self):
         for i in range(self.numbers):

@@ -7,6 +7,7 @@ from geometry_msgs.msg import Twist
 from Turtle import *
 
 import coord_helper as ch
+import path_helper as ph
 
 
 class Robot:
@@ -63,13 +64,24 @@ class Robot:
         for i in range(n):
             self.list[i].moveBezier(goal[i][0], goal[i][1])
 
+    def move_parallel(self):
+        dfs = ch.gen_df_list()
+        path_plan_x, path_plan_y = ph.calc_path_from_df_list(dfs)
+
+        for j in range(path_plan_x.shape[1] - 1):
+            for i in range(path_plan_x.shape[0]):
+                self.list[i].teleport(
+                    path_plan_x.iloc[i, j + 1], path_plan_y.iloc[i, j + 1], 0
+                )
+
 
 if __name__ == "__main__":
     try:
         r = Robot()
         r.spawn_source()
         r.log_pose()
-        r.move()
+        # r.move()
+        r.move_parallel()
 
     except KeyboardInterrupt:
         exit()

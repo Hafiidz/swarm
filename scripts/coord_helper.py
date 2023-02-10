@@ -2,8 +2,8 @@ from numpy import exp, abs, angle
 import pandas as pd
 import numpy as np
 
-p = "/root/catkin_ws/src/swarm/scripts/"
-# p = "~/ros/catkin_ws/src/swarm/scripts/"
+p = "/root/catkin_ws/src/swarm/scripts/coordinates/"
+# p = "~/ros/catkin_ws/src/swarm/scripts/coordinates/"
 
 
 def shape(s):

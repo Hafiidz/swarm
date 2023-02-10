@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 p = "/root/catkin_ws/src/swarm/scripts/"
-# p = "~/catkin_ws/src/swarm/scripts/"
+# p = "~/ros/catkin_ws/src/swarm/scripts/"
 
 
 def shape(s):
@@ -108,5 +108,13 @@ def gen_df_list():
     df3 = coord_sorted_df("square")
     df4 = coord_sorted_df("circle")
     df5 = coord_sorted_df("square")
-
     return [df1, df2, df3, df4, df5]
+
+
+# def gen_df_list():
+#     df1 = coord_sorted_df("square")
+#     df2 = coord_shifted_df(df1, 1)
+#     df3 = coord_shifted_df(df1, 2)
+#     df4 = coord_shifted_df(df1, 3)
+#     df5 = coord_shifted_df(df1, 4)
+#     return [df1, df2, df3, df4, df5]

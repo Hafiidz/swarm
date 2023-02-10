@@ -108,7 +108,8 @@ def gen_df_list():
     df3 = coord_sorted_df("star")
     df4 = coord_sorted_df("circle")
     df5 = coord_sorted_df("square")
-    return [df1, df2, df3, df4, df5]
+    df6 = coord_sorted_df("diamond")
+    return [df1, df2, df3, df4, df5, df6]
 
 
 # def gen_df_list():

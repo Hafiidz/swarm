@@ -74,8 +74,12 @@ class Robot:
             self.list[i].moveBezier(goal[i][0], goal[i][1])
 
     def move_parallel(self):
-        dfs = ch.gen_df_list()
-        path_plan_x, path_plan_y, path_plan_theta = ph.calc_path_from_df_list(dfs)
+        # dfs = ch.gen_df_list()
+        # path_plan_x, path_plan_y, path_plan_theta = ph.calc_path_from_df_list(dfs)
+
+        path_plan_x = pd.read_csv(ch.p + "x.csv")
+        path_plan_y = pd.read_csv(ch.p + "y.csv")
+        path_plan_theta = pd.read_csv(ch.p + "t.csv")
 
         lj = path_plan_x.shape[1] - 1
         li = int(path_plan_x.shape[0] / 4)

@@ -38,6 +38,7 @@ def calc_path_from_df_list(df_list):
 
     path_x = pd.DataFrame(range(1, length + 1), columns=["turtle"])
     path_y = pd.DataFrame(range(1, length + 1), columns=["turtle"])
+    path_theta = pd.DataFrame(range(1, length + 1), columns=["turtle"])
 
     for i in range(length):
         for j in range(len(df_list) - 1):
@@ -51,5 +52,12 @@ def calc_path_from_df_list(df_list):
             for k in range(len(p2)):
                 path_x.at[i, str(j) + "_" + str(k)] = p2[k][0]
                 path_y.at[i, str(j) + "_" + str(k)] = p2[k][1]
+                path_theta.at[i, str(j) + "_" + str(k)] = current.d + (k / len(p2)) * (
+                    target.d - current.d
+                )
 
-    return path_x, path_y
+                # path_theta.at[i, str(j) + "_" + str(k)] = current.d + (k / len(p2)) * (
+                #     target.d - current.d
+                # )
+
+    return path_x, path_y, path_theta

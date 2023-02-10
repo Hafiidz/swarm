@@ -75,7 +75,7 @@ class Robot:
 
     def move_parallel(self):
         dfs = ch.gen_df_list()
-        path_plan_x, path_plan_y = ph.calc_path_from_df_list(dfs)
+        path_plan_x, path_plan_y, path_plan_theta = ph.calc_path_from_df_list(dfs)
 
         lj = path_plan_x.shape[1] - 1
         li = int(path_plan_x.shape[0] / 4)
@@ -83,20 +83,24 @@ class Robot:
         for j in range(lj):
             for i in range(li):
                 self.list[i].teleport(
-                    path_plan_x.iloc[i, j + 1], path_plan_y.iloc[i, j + 1], 0
+                    path_plan_x.iloc[i, j + 1],
+                    path_plan_y.iloc[i, j + 1],
+                    path_plan_theta.iloc[i, j + 1] + pi / 2,
                 )
                 self.list[i + li].teleport(
-                    path_plan_x.iloc[i + li, j + 1], path_plan_y.iloc[i + li, j + 1], 0
+                    path_plan_x.iloc[i + li, j + 1],
+                    path_plan_y.iloc[i + li, j + 1],
+                    path_plan_theta.iloc[i + li, j + 1] + pi / 2,
                 )
                 self.list[i + 2 * li].teleport(
                     path_plan_x.iloc[i + 2 * li, j + 1],
                     path_plan_y.iloc[i + 2 * li, j + 1],
-                    0,
+                    path_plan_theta.iloc[i + 2 * li, j + 1] + pi / 2,
                 )
                 self.list[i + 3 * li].teleport(
                     path_plan_x.iloc[i + 3 * li, j + 1],
                     path_plan_y.iloc[i + 3 * li, j + 1],
-                    0,
+                    path_plan_theta.iloc[i + 3 * li, j + 1] + pi / 2,
                 )
 
 

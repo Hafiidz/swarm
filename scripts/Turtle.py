@@ -43,7 +43,7 @@ class Turtle:
         )
 
         self.pose = Pose()
-        self.rate = rospy.Rate(10)
+        self.rate = rospy.Rate(1000)
 
     def __str__(self):
         return "Turtle {}".format(self.name)

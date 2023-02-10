@@ -107,17 +107,6 @@ class Robot:
                     path_plan_theta.iloc[i + 3 * li, j + 1] + pi / 2,
                 )
 
-    def move_extra(self):
-        l = len(self.list)
-        self.list.append(Turtle(l + 1))
-        self.list[l].spawn(1, 1, pi / 2)
-        self.list[l].moveBezier(8, 3, pi)
-        self.list[l].moveBezier(4, 4, pi)
-        self.list[l].moveBezier(8, 8, pi)
-        self.list[l].moveBezier(5.5, 10, pi)
-        self.list[l].moveBezier(2, 7.5, 0)
-        self.list[l].moveBezier(7, 6.5, 0)
-
 
 if __name__ == "__main__":
     try:
@@ -125,7 +114,6 @@ if __name__ == "__main__":
         r.spawn_source()
         # r.log_pose()
         r.move_parallel()
-        r.move_extra()
 
     except KeyboardInterrupt:
         exit()

@@ -1,0 +1,4 @@
+<launch>
+  <node name="turtlesim" pkg="turtlesim" type="turtlesim_node" />
+  <node name="central" pkg="swarm" type="central.py" output="screen"/>
+</launch>

@@ -11,6 +11,8 @@
 1. Run the following in the host terminal `docker run -p 6080:80 --shm-size=512m --name=rostest -it hafiidz/noetic-swarm:v0`
 1. Open http://localhost:6080/ on your host PC browser
 1. Inside the container, open a terminal and run: `roslaunch swarm central.launch`
+![image](https://user-images.githubusercontent.com/3688500/218263156-392acdc7-fcd9-48e3-862f-27a0dba3da13.png)
+
 
 ## To stop the container
 1. In the host terminal, get running container ID by running `docker ps` in the terminal

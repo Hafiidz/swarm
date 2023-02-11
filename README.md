@@ -1,30 +1,15 @@
 ### Recommended Steps
 
-#### On Host Computer (example command in Ubuntu)
-1. `cd ~`
-1. `mkdir ros`
-1. `git clone https://github.com/Hafiidz/swarm.git ~/ros/catkin_ws/src/swarm`
-1. `docker pull tiryoh/ros-desktop-vnc:noetic-amd64`
-1. `docker run -p 6080:80 --shm-size=512m --name=rosn -it -v ~/ros/catkin_ws:/root/catkin_ws tiryoh/ros-desktop-vnc:noetic-amd64`
-1. open a browser and got to localhost:6080 or http://127.0.0.1:6080/
+# ROS drone show swarm project
 
-#### Once inside docker container, create a new terminal
-1. `sudo apt-get update`
-1. `sudo apt-get -y install python3-pip`
-1. `sudo apt install python-is-python3`
-1. `pip install pandas`
-1. edit bash file, for example, `vim ~/.bashrc` and add the following lines
+## Project setup & resources
+1. ros : this is the repo for Dockerfile and coordinate generation code https://github.com/Hafiidz/ros
+1. swarm : this is the  repo for the swarm via turtlesim source code https://github.com/Hafiidz/swarm
 
-    ![bashrc screenshot](notes/bashrc.png)
-
-1. `cd /root/catkin_ws`
-1. `catkin_make`
-1. `roscore`
-
-#### create a second terminal
-1. `rosrun turtlesim turtlesim_node`
-
-#### create a third terminal
-1. `rosrun swarm central.py`
+## Steps
+1. Install Docker Desktop/Docler https://docs.docker.com/get-docker/
+1. Run the following in the host terminal `docker run -p 6080:80 --shm-size=512m --name=rostest -it hafiidz/noetic-swarm:v0`
+1. Open http://localhost:6080/ on your host PC browser
+1. Inside the container, open a terminal and run: `roslaunch swarm central.launch`
 
 

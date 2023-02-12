@@ -125,8 +125,10 @@ def gen_df_list():
     df4 = coord_sorted_df("circle", sort="polar")
     df5 = coord_sorted_df("square", sort="polar")
     df6 = coord_sorted_df("diamond", sort="polar")
-    df7 = coord_sorted_df("d5", sort="polar")
-    return [df1, df2, df3, df4, df5, df6, df7]
+    df7 = coord_sorted_df("arrow", sort="polar")
+    df8 = coord_sorted_df("flower", sort="polar")
+    df9 = coord_sorted_df("love", sort="polar")
+    return [df1, df2, df3, df4, df5, df6, df7, df8, df9]
 
 
 def gen_df_breakdown():

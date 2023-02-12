@@ -27,7 +27,7 @@ class Robot:
         # Rate to control frequency of operation of node
         self.rate = rospy.Rate(1)  # 10hz
 
-        df = ch.coord_sorted_df("circle")
+        df = ch.coord_sorted_df("circle", sort="polar")
         self.contours = df[["x", "y", "d"]].to_numpy()
         self.numbers = df.shape[0]
 
@@ -41,7 +41,7 @@ class Robot:
 
     def spawn_source(self):
         """
-        Spawn multiple turtles on the first point of each contour
+        Spawn multiple turtles on the designated first shape
         """
         rospy.loginfo("Spawning an army of turtles to perform drone show")
         for i in range(self.numbers):

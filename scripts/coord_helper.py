@@ -1,15 +1,15 @@
 from numpy import exp, abs, angle
 import pandas as pd
 
-# p = "/root/catkin_ws/src/swarm/scripts/coordinates/"
+p = "/root/catkin_ws/src/swarm/scripts/coordinates/"
 # p = "~/ros/catkin_ws/src/swarm/scripts/coordinates/"
-p = "~/catkin_ws/src/swarm/scripts/coordinates/"
+# p = "~/catkin_ws/src/swarm/scripts/coordinates/"
 
 
 def shape(s, target_space=3, target_length=5, path=p):
     # coordinate is 11x11, normalize to ensure, 3 spaces to the side and 5 at center
 
-    df = pd.read_csv("{}{}.csv".format(p, s))
+    df = pd.read_csv("{}{}.csv".format(path, s))
 
     df["x"] = df["x"] - df["x"].min()
     df["y"] = df["y"] - df["y"].min()
@@ -48,7 +48,7 @@ def sort_closest(df):
 
 def coord_sorted(s, sort="none", path=p):
     sort = sort.lower()
-    goal = shape(s)
+    goal = shape(s, path=path)
     goal -= 5.5
 
     df = pd.DataFrame(goal, columns=["x", "y"])
@@ -77,7 +77,7 @@ def coord_shifted(coord, shift=1):
 def shape_df(s, target_space=3, target_length=5, path=p):
     # coordinate is 11x11, normalize to ensure, 3 spaces to the side and 5 at center
 
-    df = pd.read_csv("{}{}.csv".format(p, s))
+    df = pd.read_csv("{}{}.csv".format(path, s))
 
     df["x"] = df["x"] - df["x"].min()
     df["y"] = df["y"] - df["y"].min()
@@ -94,7 +94,7 @@ def shape_df(s, target_space=3, target_length=5, path=p):
 def coord_sorted_df(
     s, sort="none", offset=-5.5, target_space=3, target_length=5, path=p
 ):
-    goal = shape_df(s, target_space, target_length)
+    goal = shape_df(s, target_space, target_length, path=path)
 
     df = pd.DataFrame(goal, columns=["x", "y"])
     df["r"], df["d"] = xy2polar(df.x + offset, df.y + offset)
@@ -118,21 +118,22 @@ def coord_shifted_df(df, shift=1):
     return df
 
 
-def gen_df_list():
-    df1 = coord_sorted_df("square", sort="polar")
-    df2 = coord_sorted_df("circle", sort="polar")
-    df3 = coord_sorted_df("star", sort="polar")
-    df4 = coord_sorted_df("circle", sort="polar")
-    df5 = coord_sorted_df("square", sort="polar")
-    df6 = coord_sorted_df("diamond", sort="polar")
-    df7 = coord_sorted_df("arrow", sort="polar")
-    df8 = coord_sorted_df("flower", sort="polar")
-    df9 = coord_sorted_df("love", sort="polar")
-    return [df1, df2, df3, df4, df5, df6, df7, df8, df9]
+def gen_df_list(path=p):
+    df1 = coord_sorted_df("square", sort="polar", path=path)
+    df2 = coord_sorted_df("circle", sort="polar", path=path)
+    df3 = coord_sorted_df("star", sort="polar", path=path)
+    df4 = coord_sorted_df("circle", sort="polar", path=path)
+    df5 = coord_sorted_df("square", sort="polar", path=path)
+    df6 = coord_sorted_df("diamond", sort="polar", path=path)
+    df7 = coord_sorted_df("flower", sort="polar", path=path)
+    df8 = coord_sorted_df("love", sort="polar", path=path)
+    return [df1, df2, df3, df4, df5, df6, df7, df8]
 
 
-def gen_df_breakdown():
-    df1 = coord_sorted_df("square", sort="polar")
-    df2 = coord_sorted_df("circle", sort="polar")
-    df2 = coord_sorted_df("circle_32", sort="polar", target_length=9, target_space=1)
+def gen_df_breakdown(path=p):
+    df1 = coord_sorted_df("square", sort="polar", path=path)
+    df2 = coord_sorted_df("circle", sort="polar", path=path)
+    df2 = coord_sorted_df(
+        "circle_32", sort="polar", target_length=9, target_space=1, path=path
+    )
     return [df1, df2]
